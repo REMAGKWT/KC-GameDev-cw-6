@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class controls : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class controls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x + inc, min, max),transform.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x + inc, min, max), transform.position.y, transform.position.z);
         }
 
         else if (Input.GetKeyDown(KeyCode.A))
@@ -37,7 +38,20 @@ public class controls : MonoBehaviour
         }
 
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Restart();
+        }
+    }
+    void Restart()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
 
 
 }
